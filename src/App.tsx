@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { Match, MatchStatus, Team } from './types';
 import SoccerField from './components/SoccerField';
@@ -25,7 +25,8 @@ import {
   Activity,
   User,
   Users,
-  Grid
+  Grid,
+  Sparkles
 } from 'lucide-react';
 
 const TeamLogo = ({ team, className }: { team: Team; className: string }) => {
@@ -80,6 +81,10 @@ const GROUP_NAMES_KU: Record<string, string> = {
   'Group J': 'کۆمەڵەی J',
   'Group K': 'کۆمەڵەی K',
   'Group L': 'کۆمەڵەی L',
+  'ranking of third-placed teams': 'ریزبەندی باشترین سێیەمەکان',
+  'Ranking of third-placed teams': 'ریزبەندی باشترین سێیەمەکان',
+  'rangin of third-placed teams': 'ریزبەندی باشترین سێیەمەکان',
+  'Rangin of third-placed teams': 'ریزبەندی باشترین سێیەمەکان',
 };
 
 const TEAM_FLAGS: Record<string, string> = {
@@ -157,7 +162,7 @@ const MatchCountdown = ({ date, time, timestamp }: { date: string, time: string,
       const minutes = Math.floor((diff / 1000 / 60) % 60);
 
       if (days > 0) {
-        return `ماوە: ${days} ڕۆژ و ${hours} کاتژمێر`;
+        return `ماوە: ${days} رۆژ و ${hours} کاتژمێر`;
       }
       if (hours > 0) {
         return `ماوە: ${hours} کاتژمێر و ${minutes} خولەک`;
@@ -180,6 +185,118 @@ const MatchCountdown = ({ date, time, timestamp }: { date: string, time: string,
   );
 };
 
+const demoMatch: Match = {
+  id: 999999,
+  homeTeam: {
+    id: 10101,
+    name: 'Iraq',
+    nameKu: 'عێراق',
+    logo: 'https://flagcdn.com/w80/iq.png',
+    code: 'IRQ'
+  },
+  awayTeam: {
+    id: 10102,
+    name: 'Spain',
+    nameKu: 'ئیسپانیا',
+    logo: 'https://flagcdn.com/w80/es.png',
+    code: 'ESP'
+  },
+  homeScore: 2,
+  awayScore: 1,
+  status: 'LIVE',
+  minute: 74,
+  date: '2026-06-11',
+  time: '19:00',
+  round: 'Demo Match',
+  roundKu: 'یاری تاقیکاری (نموونەیی)',
+  events: [
+    {
+      id: 'ev1',
+      minute: 14,
+      type: 'card',
+      detail: 'گاڤی',
+      teamId: 10102,
+      cardType: 'yellow'
+    },
+    {
+      id: 'ev2',
+      minute: 28,
+      type: 'goal',
+      detail: 'ئەیمەن حوسێن',
+      assist: 'عەلی جاسم',
+      teamId: 10101
+    },
+    {
+      id: 'ev3',
+      minute: 42,
+      type: 'goal',
+      detail: 'ئالڤارۆ مۆراتا',
+      assist: 'لامین یامال',
+      teamId: 10102
+    },
+    {
+      id: 'ev4',
+      minute: 60,
+      type: 'sub',
+      detail: 'گۆڕانکاری',
+      playerIn: 'زێدان ئیقبال',
+      playerOut: 'ئوسامە ڕەشید',
+      teamId: 10101
+    },
+    {
+      id: 'ev5',
+      minute: 71,
+      type: 'goal',
+      detail: 'زێدان ئیقبال',
+      assist: 'ئەیمەن حوسێن',
+      teamId: 10101
+    }
+  ],
+  stats: {
+    possession: { home: 44, away: 56 },
+    shots: { home: 9, away: 14 },
+    shotsOnGoal: { home: 4, away: 6 },
+    corners: { home: 3, away: 8 },
+    fouls: { home: 12, away: 8 },
+    yellowCards: { home: 2, away: 1 },
+    redCards: { home: 0, away: 0 }
+  },
+  lineups: {
+    home: {
+      formation: '4-2-3-1',
+      players: [
+        { id: 1001, name: 'جەلال حەسەن', number: 1, position: 'G', gridX: 3, gridY: 1 },
+        { id: 1002, name: 'حوسێن عەلی', number: 3, position: 'D', gridX: 1, gridY: 2 },
+        { id: 1003, name: 'ڕێبین سۆلاقا', number: 4, position: 'D', gridX: 2, gridY: 2 },
+        { id: 1004, name: 'سەعد ناتیق', number: 2, position: 'D', gridX: 4, gridY: 2 },
+        { id: 1005, name: 'میرخاس دۆسکی', number: 15, position: 'D', gridX: 5, gridY: 2 },
+        { id: 1006, name: 'ئەمیر عەماری', number: 16, position: 'M', gridX: 2, gridY: 3 },
+        { id: 1007, name: 'ئوسامە ڕەشید', number: 8, position: 'M', gridX: 4, gridY: 3 },
+        { id: 1008, name: 'ئیبراهیم بایش', number: 11, position: 'M', gridX: 1, gridY: 4 },
+        { id: 1009, name: 'زێدان ئیقبال', number: 10, position: 'M', gridX: 3, gridY: 4 },
+        { id: 1010, name: 'عەلی جاسم', number: 7, position: 'M', gridX: 5, gridY: 4 },
+        { id: 1011, name: 'ئەیمەن حوسێن', number: 18, position: 'F', gridX: 3, gridY: 5 }
+      ]
+    },
+    away: {
+      formation: '4-3-3',
+      players: [
+        { id: 2001, name: 'ئۆنای سیمۆن', number: 1, position: 'G', gridX: 3, gridY: 1 },
+        { id: 2002, name: 'کارڤاخال', number: 2, position: 'D', gridX: 1, gridY: 2 },
+        { id: 2003, name: 'لێ نۆرماند', number: 3, position: 'D', gridX: 2, gridY: 2 },
+        { id: 2004, name: 'لاپۆرتی', number: 14, position: 'D', gridX: 4, gridY: 2 },
+        { id: 2005, name: 'کوکورێلا', number: 24, position: 'D', gridX: 5, gridY: 2 },
+        { id: 2006, name: 'ڕۆدری', number: 16, position: 'M', gridX: 3, gridY: 3 },
+        { id: 2007, name: 'پێدری', number: 20, position: 'M', gridX: 2, gridY: 4 },
+        { id: 2008, name: 'فابیان ڕۆیز', number: 8, position: 'M', gridX: 4, gridY: 4 },
+        { id: 2009, name: 'لامین یامال', number: 19, position: 'F', gridX: 1, gridY: 5 },
+        { id: 2010, name: 'ئالڤارۆ مۆراتا', number: 7, position: 'F', gridX: 3, gridY: 5 },
+        { id: 2011, name: 'نیکۆ ویلیامز', number: 17, position: 'F', gridX: 5, gridY: 5 }
+      ]
+    }
+  }
+};
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -200,10 +317,10 @@ export default function App() {
 function AppContent() {
   const [activeNavTab, setActiveNavTab] = useState<'matches' | 'standings' | 'scorers' | 'injuries'>('matches');
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
+  const [isDemoActive, setIsDemoActive] = useState<boolean>(false);
   const [activeDetailsTab, setActiveDetailsTab] = useState<'events' | 'stats' | 'lineups' | 'h2h'>('events');
   const [filterStage, setFilterStage] = useState<'all' | 'live' | 'upcoming' | 'finished'>('all');
   const [isAudioEnabled, setIsAudioEnabled] = useState<boolean>(true);
-  const [activeLeague, setActiveLeague] = useState<number>(1); // 1 = World Cup, 10 = Friendlies
   const [goalOverlay, setGoalOverlay] = useState<{
     show: boolean;
     teamNameKu: string;
@@ -234,9 +351,9 @@ function AppContent() {
 
   // 2. Main Match Data Query (with dynamic auto-polling TTL matching matches status)
   const matchesQuery = useQuery({
-    queryKey: ['matches', activeLeague],
+    queryKey: ['matches', 1],
     queryFn: async () => {
-      return fetchMatches(activeLeague, 2026);
+      return fetchMatches(1, 2026);
     },
     refetchInterval: (query) => {
       const list = query.state.data || [];
@@ -247,7 +364,10 @@ function AppContent() {
     staleTime: 15000,
   });
 
-  const matches = matchesQuery.data || [];
+  const rawMatches = matchesQuery.data || [];
+  const matches = useMemo(() => {
+    return isDemoActive ? [demoMatch, ...rawMatches] : rawMatches;
+  }, [isDemoActive, rawMatches]);
   const isLoading = matchesQuery.isLoading;
 
   // Sound triggers, real-time sync for active match selection, manual clock updating
@@ -282,9 +402,9 @@ function AppContent() {
 
   // 3. Standings Query
   const standingsQuery = useQuery({
-    queryKey: ['standings', isLiveApiActive, activeLeague],
+    queryKey: ['standings', isLiveApiActive, 1],
     queryFn: async () => {
-      const data = await fetchStandings(activeLeague, 2026);
+      const data = await fetchStandings(1, 2026);
       return data.response?.[0]?.league?.standings || [];
     },
     enabled: isLiveApiActive,
@@ -297,9 +417,9 @@ function AppContent() {
 
   // 4. Player Statistics Query (automatically re-fetches when type tab changes in the panel)
   const playerStatsQuery = useQuery({
-    queryKey: ['playerStats', realPlayerStatsType, isLiveApiActive, activeLeague],
+    queryKey: ['playerStats', realPlayerStatsType, isLiveApiActive, 1],
     queryFn: async () => {
-      const data = await fetchPlayerStats(realPlayerStatsType, activeLeague, 2026);
+      const data = await fetchPlayerStats(realPlayerStatsType, 1, 2026);
       return data.response || [];
     },
     enabled: isLiveApiActive,
@@ -312,9 +432,9 @@ function AppContent() {
 
   // 5. Injuries & Suspensions Query
   const injuriesQuery = useQuery({
-    queryKey: ['injuries', isLiveApiActive, activeLeague],
+    queryKey: ['injuries', isLiveApiActive, 1],
     queryFn: async () => {
-      const data = await fetchInjuries(activeLeague, 2026);
+      const data = await fetchInjuries(1, 2026);
       return data.response || [];
     },
     enabled: isLiveApiActive,
@@ -327,7 +447,7 @@ function AppContent() {
 
   // 5. Head-to-Head Query
   const h2hQuery = useQuery({
-    queryKey: ['h2h', selectedMatch?.homeTeam.id, selectedMatch?.awayTeam.id, isLiveApiActive, activeLeague],
+    queryKey: ['h2h', selectedMatch?.homeTeam.id, selectedMatch?.awayTeam.id, isLiveApiActive, 1],
     queryFn: async () => {
       if (!selectedMatch || !isLiveApiActive) return null;
       const data = await fetchHeadToHead(`${selectedMatch.homeTeam.id}-${selectedMatch.awayTeam.id}`);
@@ -592,7 +712,7 @@ function AppContent() {
         return (
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-rose-950/80 text-rose-400 border border-rose-900/40">
             <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
-            ڕاستەوخۆ {minute}'
+            راستەوخۆ {minute}'
           </span>
         );
       case 'HT':
@@ -635,7 +755,7 @@ function AppContent() {
       case 'ABD':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-950 text-red-400 border border-red-900/40">
-            ڕاگیراوە
+            راگیراوە
           </span>
         );
       default:
@@ -650,19 +770,6 @@ function AppContent() {
       <header className="h-16 border-b border-white/5 bg-gradient-to-r from-[#0a0c10] via-[#0f141e] to-[#0a0c10] flex items-center justify-between px-4 flex-shrink-0 z-30 sticky top-0 shadow-2xl">
         {/* Global Controls */}
         <div className="flex items-center gap-3">
-          {/* League Selector Mode Toggle */}
-          <button
-            onClick={() => setActiveLeague(activeLeague === 1 ? 10 : 1)}
-            className={`px-3 py-1.5 rounded-xl border transition-all cursor-pointer shadow-lg active:scale-95 flex items-center gap-2 text-xs font-black uppercase tracking-wider ${
-              activeLeague === 10
-                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 border-blue-400/50 text-white shadow-[0_0_15px_rgba(59,130,246,0.4)]'
-                : 'bg-[#121826] border-white/10 text-white/50 hover:text-white hover:border-white/30'
-            }`}
-          >
-            <span className="text-sm">🌍</span>
-            <span className="hidden sm:inline">{activeLeague === 10 ? 'جامی جیهانی بەردەست بخە' : 'یارییە دۆستانەکان'}</span>
-          </button>
-
           {/* Connection status indicator */}
           <div className="flex items-center gap-2 bg-[#05070a] border border-white/10 px-3 py-1.5 rounded-xl shadow-inner">
             <span className={`w-2 h-2 rounded-full shadow-[0_0_5px_rgba(0,0,0,0.5)] border border-black/50 ${isLiveApiActive ? 'bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-rose-600 animate-pulse'}`} />
@@ -746,6 +853,27 @@ function AppContent() {
             <h2 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2 drop-shadow-md">
               <span className="text-lg drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">⚽</span> خشتەی یارییەکان
             </h2>
+            <button
+              onClick={() => {
+                setIsDemoActive(prev => {
+                  const nextVal = !prev;
+                  if (nextVal) {
+                    setSelectedMatch(demoMatch);
+                  } else if (selectedMatch?.id === 999999) {
+                    setSelectedMatch(null);
+                  }
+                  return nextVal;
+                });
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-lg active:scale-95 border ${
+                isDemoActive 
+                  ? 'bg-gradient-to-r from-[#ffd700] to-[#b8860b] border-[#ffd700]/70 text-black shadow-[0_4px_15px_rgba(255,215,0,0.35)]' 
+                  : 'bg-gradient-to-br from-[#121826] to-[#0a0e16] border-white/10 hover:border-[#ffd700]/60 text-white/70 hover:text-white'
+              }`}
+            >
+              <Sparkles className={`w-3.5 h-3.5 ${isDemoActive ? 'text-black' : 'text-[#ffd700]'}`} />
+              <span>{isDemoActive ? 'دێمۆ چالاکە' : 'یاری دێمۆ'}</span>
+            </button>
           </div>
 
           {/* Filter Bar */}
@@ -771,7 +899,7 @@ function AppContent() {
               }`}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse shadow-[0_0_5px_rgba(248,113,113,0.8)]" />
-              ڕاستەوخۆ
+              راستەوخۆ
             </button>
             <button
               id="filter-upcoming"
@@ -793,7 +921,7 @@ function AppContent() {
                   : 'bg-[#121826] text-white/50 border border-white/5 hover:text-white hover:bg-[#1a2333]'
               }`}
             >
-              کۆتایی
+              یارییە ئەنجامدراوەکان
             </button>
           </div>
 
@@ -812,7 +940,7 @@ function AppContent() {
                 </p>
                 {!isLiveApiActive && (
                   <p className="text-xs text-white/40 mt-2 leading-relaxed">
-                    تکایە کلیلی API دابنێ بۆ بینینی یارییە ڕاستەقینەکان.
+                    تکایە کلیلی API دابنێ بۆ بینینی یارییە راستەقینەکان.
                   </p>
                 )}
               </div>
@@ -895,7 +1023,7 @@ function AppContent() {
               </div>
               
               {/* Scoreboard Immersive Hero Area with elegant radial gradients */}
-              <div dir="ltr" className="py-8 md:py-12 bg-gradient-to-b from-[#121826] to-[#0a0c10] border-b border-white/5 relative overflow-hidden">
+              <div dir="rtl" className="py-8 md:py-12 bg-gradient-to-b from-[#121826] to-[#0a0c10] border-b border-white/5 relative overflow-hidden">
                 
                 {/* Decorative background aura overlay */}
                 <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#ffd700] opacity-5 blur-[80px] pointer-events-none rounded-full" />
@@ -974,7 +1102,7 @@ function AppContent() {
                       : 'bg-[#121826] text-white/50 border border-white/5 hover:text-white hover:bg-[#1a2333]'
                   }`}
                 >
-                  ڕووداوەکان
+                  رووداوەکان
                 </button>
                 <button
                   id="tab-stats"
@@ -1007,7 +1135,7 @@ function AppContent() {
                       : 'bg-[#121826] text-white/50 border border-white/5 hover:text-white hover:bg-[#1a2333]'
                   }`}
                 >
-                  ڕووبەڕووبوونەوە
+                  رووبەڕووبوونەوە
                 </button>
               </div>
 
@@ -1015,10 +1143,16 @@ function AppContent() {
               <div className="flex-1 p-6 md:p-8 bg-gradient-to-b from-transparent to-black/10 overflow-y-auto">
                 {activeDetailsTab === 'events' && (
                   isUnplayed(selectedMatch.status) ? (
-                    <div className="flex flex-col items-center justify-center py-20 text-center opacity-60">
+                    <div className="flex flex-col items-center justify-center py-20 text-center opacity-60 font-sans">
                       <div className="text-3xl mb-4">⏱️</div>
                       <h3 className="text-lg font-bold text-white mb-2">یارییەکە هێشتا دەستی پێ نەکردووە</h3>
-                      <p className="text-sm text-white/60 max-w-md">لە کاتی دەستپێکردنی یارییەکەدا، ڕووداوەکانی وەک گۆڵ، کارت و گۆڕانکارییەکان لێرەدا دەردەکەون.</p>
+                      <p className="text-sm text-white/60 max-w-md leading-relaxed">لە کاتی دەستپێکردنی یارییەکەدا، رووداوەکانی وەک گۆڵ، کارت و گۆڕانکارییەکان لێرەدا دەردەکەون.</p>
+                    </div>
+                  ) : selectedMatch.events.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-20 text-center opacity-60 font-sans">
+                      <div className="text-3xl mb-4">⚽</div>
+                      <h3 className="text-lg font-bold text-white mb-2">هیچ رووداوێک لەم یارییەدا نییە</h3>
+                      <p className="text-sm text-white/60 max-w-md leading-relaxed">تا ئێستا هیچ گۆڵ، کارت و گۆڕانکارییەک لەم یارییەدا تۆمار نەکراوە.</p>
                     </div>
                   ) : (
                     <EventTimeline
@@ -1033,7 +1167,7 @@ function AppContent() {
                     <div className="flex flex-col items-center justify-center py-20 text-center opacity-60">
                       <div className="text-3xl mb-4">📊</div>
                       <h3 className="text-lg font-bold text-white mb-2">یارییەکە هێشتا دەستی پێ نەکردووە</h3>
-                      <p className="text-sm text-white/60 max-w-md">ئامارەکانی یارییەکە دوای دەستپێکردنی ڕاستەوخۆ لێرە دەردەکەون.</p>
+                      <p className="text-sm text-white/60 max-w-md">ئامارەکانی یارییەکە دوای دەستپێکردنی راستەوخۆ لێرە دەردەکەون.</p>
                     </div>
                   ) : (
                     <StatsBar
@@ -1055,13 +1189,13 @@ function AppContent() {
                 {activeDetailsTab === 'h2h' && (
                   <div className="space-y-4">
                     <h3 className="text-white/80 font-bold mb-4 flex items-center gap-2">
-                      <span className="text-xl">⚔️</span> ڕووبەڕووبوونەوەکانی پێشوو
+                      <span className="text-xl">⚔️</span> رووبەڕووبوونەوەکانی پێشوو
                     </h3>
                     {h2hQuery.isLoading ? (
                       <div className="flex justify-center py-10"><div className="w-8 h-8 rounded-full border-2 border-[#ffd700] border-t-transparent animate-spin"></div></div>
                     ) : (!h2hMatches || h2hMatches.length === 0) ? (
                       <div className="bg-[#121826] border border-white/5 p-8 rounded-2xl text-center">
-                        <p className="text-white/60">هیچ ڕووبەڕووبوونەوەیەکی پێشوو لە نێوان ئەم دوو هەڵبژاردەیەدا نەدۆزرایەوە.</p>
+                        <p className="text-white/60">هیچ رووبەڕووبوونەوەیەکی پێشوو لە نێوان ئەم دوو هەڵبژاردەیەدا نەدۆزرایەوە.</p>
                       </div>
                     ) : (
                       <div className="grid gap-3">
@@ -1099,10 +1233,7 @@ function AppContent() {
           ) : (
             <div id="no-match-selected-placeholder" className="p-16 text-center m-auto flex flex-col items-center justify-center max-w-md">
               <Trophy className="w-16 h-16 text-white/5 mb-4 animate-bounce-slow" />
-              <h3 className="text-white font-bold text-lg">چالاکییەک دیاریبکە</h3>
-              <p className="text-white/40 text-sm mt-1">
-                کلیک لەسەر یەکێک لە کارتەکانی لای چەپ بکە بۆ پیشاندانی وردەکارییەکان و پەخشی ڕاستەوخۆ.
-              </p>
+              <h3 className="text-white font-bold text-lg">یارییەک دیاری بکە</h3>
             </div>
           )}
         </section>
@@ -1150,7 +1281,7 @@ function AppContent() {
                             <table className="w-full text-center text-xs md:text-sm font-sans font-medium">
                               <thead>
                                 <tr className="border-b border-white/5 text-white/45 font-bold bg-[#0d1222]/30">
-                                  <th className="py-3 px-4 text-start">ڕیزبەندی / تیم</th>
+                                  <th className="py-3 px-4 text-start">ریزبەندی / تیم</th>
                                   <th className="py-3 px-1.5 w-10" title="یارییە ئەنجامدراوەکان">یاری</th>
                                   <th className="py-3 px-1.5 w-10 text-emerald-400" title="بردنی یارییەکان">ب</th>
                                   <th className="py-3 px-1.5 w-10 text-slate-200" title="یەکسانبوون">ی</th>
@@ -1213,7 +1344,7 @@ function AppContent() {
                   🏅 ئاماری سەرجەم یاریزانان لە کاتی مۆندیال
                 </h2>
                 <p className="text-xs text-white/40 font-sans mt-0.5">
-                  گۆڵکاران، خاوەن زۆرترین ئاسیست و کارتەکانی یاریزانان ڕاستەوخۆ لێرەوە دەبینیت.
+                  گۆڵکاران، خاوەن زۆرترین ئاسیست و کارتەکانی یاریزانان راستەوخۆ لێرەوە دەبینیت.
                 </p>
               </div>
 
@@ -1222,8 +1353,8 @@ function AppContent() {
                   {/* Option pills */}
                   <div className="flex flex-wrap gap-2 justify-center border-b border-white/5 pb-4">
                     {[
-                      { type: 'topscorers', title: '🏅 گۆڵکاران' },
-                      { type: 'topassists', title: '👞 ئاسیست' },
+                      { type: 'topscorers', title: '⚽️ گۆڵکاران' },
+                      { type: 'topassists', title: '👟 ئەسیست' },
                       { type: 'topyellowcards', title: '🟨 کارتە زەردەکان' },
                       { type: 'topredcards', title: '🟥 کارتە سوورەکان' },
                     ].map((item) => (

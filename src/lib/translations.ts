@@ -14,13 +14,13 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
   'Alexis Mac Allister': 'ئالێکسیس ماک ئەلیستەر',
   'E. Martínez': 'ئێمیلیانۆ مارتینێز',
   'Emiliano Martínez': 'ئێمیلیانۆ مارتینێز',
-  'C. Romero': 'کریستیان ڕۆمێرۆ',
+  'C. Romero': 'کریستیان رۆمێرۆ',
   'N. Otamendi': 'نیکۆلاس ئۆتامێندی',
   'N. Molina': 'ناهوێل مۆلینا',
   'N. Tagliafico': 'نیکۆلاس تالیافیکۆ',
   'Enzo Fernández': 'ئینزۆ فێرناندێز',
-  'R. De Paul': 'ڕۆدریگۆ دێ پۆڵ',
-  'Rodrigo De Paul': 'ڕۆدریگۆ دێ پۆڵ',
+  'R. De Paul': 'رۆدریگۆ دێ پۆڵ',
+  'Rodrigo De Paul': 'رۆدریگۆ دێ پۆڵ',
   'Julián Álvarez': 'جولیان ئالڤارێز',
   'J. Álvarez': 'جولیان ئالڤارێز',
   'Lautaro Martínez': 'لاوتارۆ مارتینێز',
@@ -39,8 +39,8 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
   'Ousmane Dembélé': 'عوسمان دێمبێلی',
   'A. Tchouaméni': 'ئۆریلیان چوامینی',
   'Aurélien Tchouaméni': 'ئۆریلیان چوامینی',
-  'A. Rabiot': 'ئادریان ڕابیۆ',
-  'Adriener Rabiot': 'ئادریان ڕابیۆ',
+  'A. Rabiot': 'ئادریان رابیۆ',
+  'Adriener Rabiot': 'ئادریان رابیۆ',
   'K. Coman': 'کینگسلی کۆمان',
   'Kingsley Coman': 'کینگسلی کۆمان',
   'Y. Fofana': 'یووسف فۆفانا',
@@ -50,8 +50,8 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
   'Hugo Lloris': 'هۆگۆ لۆریس',
   'J. Koundé': 'ژول کوندێ',
   'Jules Koundé': 'ژول کوندێ',
-  'R. Varane': 'ڕافایل ڤاران',
-  'Raphaël Varane': 'ڕافایل ڤاران',
+  'R. Varane': 'رافایل ڤاران',
+  'Raphaël Varane': 'رافایل ڤاران',
   'D. Upamecano': 'دایۆت ئوپامێکانۆ',
   'Dayot Upamecano': 'دایۆت ئوپامێکانۆ',
   'T. Hernandez': 'تیۆ هێرناندێز',
@@ -59,11 +59,11 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
 
   // Brazil
   'Neymar Jr': 'نێیمار جۆنیۆر',
-  'Richarlison': 'ڕیشارلیسۆن',
+  'Richarlison': 'ریشارلیسۆن',
   'Vinícius Jr': 'ڤینیسیۆس جۆنیۆر',
   'Vinicius Junior': 'ڤینیسیۆس جۆنیۆر',
-  'Raphinha': 'ڕافینیا',
-  'Rodrygo': 'ڕۆدریگۆ',
+  'Raphinha': 'رافینیا',
+  'Rodrygo': 'رۆدریگۆ',
   'Alisson Becker': 'ئەلیسۆن بێکەر',
   'Alisson': 'ئەلیسۆن',
   'Danilo': 'دانیلۆ',
@@ -85,12 +85,12 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
   'Manuel Neuer': 'مانوێل نۆیە',
   'N. Süle': 'نیکلاس زولە',
   'Niklas Süle': 'نیکلاس زولە',
-  'A. Rüdiger': 'ئەنتۆنیۆ ڕودیگەر',
-  'Antonio Rüdiger': 'ئەنتۆنیۆ ڕودیگەر',
+  'A. Rüdiger': 'ئەنتۆنیۆ رودیگەر',
+  'Antonio Rüdiger': 'ئەنتۆنیۆ رودیگەر',
   'N. Schlotterbeck': 'نیکۆلاس شلۆتەربێک',
   'Nico Schlotterbeck': 'نیکۆلاس شلۆتەربێک',
-  'D. Raum': 'دەیڤد ڕاوم',
-  'David Raum': 'دەیڤد ڕاوم',
+  'D. Raum': 'دەیڤد راوم',
+  'David Raum': 'دەیڤد راوم',
   'J. Kimmich': 'جۆشوا کیمیچ',
   'Joshua Kimmich': 'جۆشوا کیمیچ',
   'Ilkay Gündogan': 'ئیلکای گوندۆگان',
@@ -109,8 +109,8 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
   'Álvaro Morata': 'ئەلڤارۆ مۆراتا',
   'Alvaro Morata': 'ئەلڤارۆ مۆراتا',
   'A. Morata': 'ئەلڤارۆ مۆراتا',
-  'Ritsu Doan': 'ڕیتسۆ دۆان',
-  'R. Doan': 'ڕیتسۆ دۆان',
+  'Ritsu Doan': 'ریتسۆ دۆان',
+  'R. Doan': 'ریتسۆ دۆان',
   'Ao Tanaka': 'ئاو تاناکا',
   'A. Tanaka': 'ئاو تاناکا',
 
@@ -135,8 +135,8 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
   'Wing Wizard': 'جادووگەری باڵەکان',
 
   // Portugal
-  'Cristiano Ronaldo': 'کریستیانۆ ڕۆناڵدۆ',
-  'C. Ronaldo': 'کریستیانۆ ڕۆناڵدۆ',
+  'Cristiano Ronaldo': 'کریستیانۆ رۆناڵدۆ',
+  'C. Ronaldo': 'کریستیانۆ رۆناڵدۆ',
   'Bruno Fernandes': 'برۆنۆ فێرناندێز',
   'Bernardo Silva': 'بێرناردۆ سیلڤا',
   'João Félix': 'جواو فێلیکس',
@@ -144,7 +144,7 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
 
   // England
   'Phil Foden': 'فیل فۆدن',
-  'Marcus Rashford': 'مارکوس ڕاشفۆرد',
+  'Marcus Rashford': 'مارکوس راشفۆرد',
 
   // Spain
   'Dani Olmo': 'دانی ئۆلمۆ',
@@ -183,7 +183,7 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
   'Timothy Weah': 'تیمۆسی ویا',
   'Weston McKennie': 'ویستۆن مەککینی',
   'Folarin Balogun': 'فۆلارین بالۆگۆن',
-  'Giovanni Reyna': 'جیۆڤانی ڕێینا',
+  'Giovanni Reyna': 'جیۆڤانی رێینا',
 
   // Other Global Superstars
   'Erling Haaland': 'ئێرلینگ هالاند',
@@ -200,12 +200,12 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
   'H. Son': 'سۆن هیۆنگ مین',
   'Luis Díaz': 'لویس دیاز',
   'L. Díaz': 'لویس دیاز',
-  'James Rodríguez': 'خامیس ڕۆدریگێز',
-  'J. Rodríguez': 'خامیس ڕۆدریگێز',
-  'Riyad Mahrez': 'ڕیاز مەحرەز',
-  'R. Mahrez': 'ڕیاز مەحرەز',
-  'Robert Lewandowski': 'ڕۆبێرت لێڤاندۆڤسکی',
-  'R. Lewandowski': 'ڕۆبێرت لێڤاندۆڤسکی',
+  'James Rodríguez': 'خامیس رۆدریگێز',
+  'J. Rodríguez': 'خامیس رۆدریگێز',
+  'Riyad Mahrez': 'ریاز مەحرەز',
+  'R. Mahrez': 'ریاز مەحرەز',
+  'Robert Lewandowski': 'رۆبێرت لێڤاندۆڤسکی',
+  'R. Lewandowski': 'رۆبێرت لێڤاندۆڤسکی',
 
   // Iraq National Team Stars
   'Aymen Hussein': 'ئەیمەن حوسێن',
@@ -216,20 +216,20 @@ export const PLAYER_TRANSLATIONS: Record<string, string> = {
   'M. Ali': 'موھەنەد عەلی',
   'Ali Jassim': 'عەلی جاسم',
   'A. Jassim': 'عەلی جاسم',
-  'Ibrahim Bayesh': 'ئیبراهیم بایەش',
-  'I. Bayesh': 'ئیبراهیم بایەش',
+  'Ibrahim Bayesh': 'ئیبراهیم بایش',
+  'I. Bayesh': 'ئیبراهیم بایش',
   'Jalal Hassan': 'جەلال حەسەن',
   'J. Hassan': 'جەلال حەسەن',
   'Youssef Amyn': 'یووسف ئەمین',
   'Y. Amyn': 'یووسف ئەمین',
   'Merchas Doski': 'مێرخاس دۆسکی',
   'M. Doski': 'مێرخاس دۆسکی',
-  'Rebin Sulaka': 'ڕێبین سۆلاقا',
-  'R. Sulaka': 'ڕێبین سۆلاقا',
+  'Rebin Sulaka': 'رێبین سۆلاقا',
+  'R. Sulaka': 'رێبین سۆلاقا',
   'Amir Al-Ammari': 'ئەمیر عەماری',
   'A. Al-Ammari': 'ئەمیر عەماری',
-  'Bashar Resan': 'بەشار ڕەسەن',
-  'B. Resan': 'بەشار ڕەسەن',
+  'Bashar Resan': 'بەشار رسان',
+  'B. Resan': 'بەشار رسان',
   'Akam Hashim': 'ئاکام هاشم',
   'Akam Hasham': 'ئاکام هاشم',
   'Akam Hashem': 'ئاکام هاشم',
@@ -291,6 +291,8 @@ export const TEAM_TRANSLATIONS_KU: Record<string, string> = {
   'Spain': 'ئیسپانیا',
   'Cape Verde': 'کاپ ڤێردی',
   'Cabo Verde': 'کاپ ڤێردی',
+  'Cape Verde Islands': 'کاپ ڤێردی',
+  'Cabo Verde Islands': 'کاپ ڤێردی',
   'Saudi Arabia': 'سعوودییە', // raw api fallback support or direct key match
   'Saudi Arabia_exact': 'سعودییە',
   'Uruguay': 'ئۆرەگوای',
@@ -302,7 +304,7 @@ export const TEAM_TRANSLATIONS_KU: Record<string, string> = {
   'Norway': 'نەرویج',
 
   // Group J
-  'Argentina': 'ئەرژەنتین',
+  'Argentina': 'ئەرجەنتین',
   'Algeria': 'جەزائیر',
   'Austria': 'نەمسا',
   'Jordan': 'ئەردەن',
@@ -320,6 +322,7 @@ export const TEAM_TRANSLATIONS_KU: Record<string, string> = {
   // Group K
   'Portugal': 'پورتوگال',
   'DR Congo': 'کۆنگۆ',
+  'Congo DR': 'کۆنگۆ',
   'Congo': 'کۆنگۆ',
   'Uzbekistan': 'ئۆزباکستان',
   'Colombia': 'کۆڵۆمبیا',
@@ -344,6 +347,10 @@ export const PHRASE_TRANSLATIONS: Record<string, string> = {
   ' (Pen)': ' (لێدانی سزا)',
   '(Pen)': '(لێدانی سزا)',
   'Pen': 'لێدانی سزا',
+  'ranking of third-placed teams': 'ریزبەندی باشترین سێیەمەکان',
+  'Ranking of third-placed teams': 'ریزبەندی باشترین سێیەمەکان',
+  'rangin of third-placed teams': 'ریزبەندی باشترین سێیەمەکان',
+  'Rangin of third-placed teams': 'ریزبەندی باشترین سێیەمەکان',
 
   // Player Positions
   'Goalkeeper': 'گۆڵپارێز',
@@ -358,8 +365,8 @@ export const PHRASE_TRANSLATIONS: Record<string, string> = {
 
   // Injuries and Reasons
   'Knee Injury': 'پێکانی ئەژنۆ',
-  'Hamstring Injury': 'پێکانی بەستەری پشتەوەی ڕان',
-  'Thigh Injury': 'پێکانی ڕان',
+  'Hamstring Injury': 'پێکانی بەستەری پشتەوەی ران',
+  'Thigh Injury': 'پێکانی ران',
   'Ankle Injury': 'پێکانی پاژنەی پێ',
   'Groin Injury': 'پێکانی ناوگەڵ',
   'Calf Injury': 'پێکانی ماسولکەی پوز',
@@ -374,7 +381,7 @@ export const PHRASE_TRANSLATIONS: Record<string, string> = {
   'Doubtful': 'ناڕوون / گومانلێکراو',
   'Out': 'دوورکەوتۆتەوە',
   'Questionable': 'ناڕوون',
-  'Coach': 'ڕاهێنەر',
+  'Coach': 'راهێنەر',
   'Referee': 'ناوبژیوان',
 };
 
@@ -389,6 +396,7 @@ export function translateTextKu(text: string | undefined | null): string {
 
   // Replace known team names
   for (const [eng, ku] of Object.entries(TEAM_TRANSLATIONS_KU)) {
+    if (eng.length <= 2) continue;
     if (result.includes(eng)) {
       result = result.split(eng).join(ku);
     }
@@ -396,6 +404,7 @@ export function translateTextKu(text: string | undefined | null): string {
 
   // Replace known names
   for (const [eng, ku] of Object.entries(PLAYER_TRANSLATIONS)) {
+    if (eng.length <= 2) continue;
     if (result.includes(eng)) {
       result = result.split(eng).join(ku);
     }
@@ -403,6 +412,7 @@ export function translateTextKu(text: string | undefined | null): string {
 
   // Replace known phrases
   for (const [eng, ku] of Object.entries(PHRASE_TRANSLATIONS)) {
+    if (eng.length <= 2) continue;
     if (result.includes(eng)) {
       result = result.split(eng).join(ku);
     }

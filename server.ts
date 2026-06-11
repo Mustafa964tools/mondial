@@ -675,7 +675,7 @@ async function fetchFromApiFootballRaw(endpoint: string, apiKey: string): Promis
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
   // Set trust proxy to true so express-rate-limit can read X-Forwarded-For
   app.set('trust proxy', 1);
@@ -718,8 +718,8 @@ async function startServer() {
         const hasLive = data.some(m => m.status === 'LIVE' || m.status === 'HT');
         const hasUpcoming = data.some(m => m.status === 'NS');
         if (hasLive) {
-          console.log('[TTL DYNAMIC - ULTRA PLAN] 15 seconds cache applies due to active LIVE matches. API-Sports World Cup guidelines recommend 15s polling for live data.');
-          return 15000;
+          console.log('[TTL DYNAMIC - ULTRA PLAN] 10 seconds cache applies due to active LIVE matches.');
+          return 10000;
         } else if (hasUpcoming) {
           console.log('[TTL DYNAMIC - ULTRA PLAN] 3 minutes cache applies due to upcoming matches');
           return 180000;
@@ -755,7 +755,8 @@ async function startServer() {
       const data = await fetchCached(`standings_${leagueId}_${season}`, () => fetchFromApiFootballRaw(`standings?league=${leagueId}&season=${season}`, apiKey), 60000);
       res.json(data);
     } catch (err: any) {
-      res.status(500).json({ error: 'Failed to fetch standings', message: err.message });
+      console.error('Failed to fetch standings from API-Football:', err.message);
+      res.json({ response: [], error: 'Failed to fetch standings', message: err.message });
     }
   });
 
@@ -778,7 +779,8 @@ async function startServer() {
       const data = await fetchCached(`players_${type}_${leagueId}_${season}`, () => fetchFromApiFootballRaw(`players/${type}?league=${leagueId}&season=${season}`, apiKey), 60000);
       res.json(data);
     } catch (err: any) {
-      res.status(500).json({ error: `Failed to fetch player stats: ${type}`, message: err.message });
+      console.error(`Failed to fetch player stats (${type}) from API-Football:`, err.message);
+      res.json({ response: [], error: `Failed to fetch player stats: ${type}`, message: err.message });
     }
   });
 
@@ -795,7 +797,8 @@ async function startServer() {
       const data = await fetchCached(`injuries_${leagueId}_${season}`, () => fetchFromApiFootballRaw(`injuries?league=${leagueId}&season=${season}`, apiKey), 60000);
       res.json(data);
     } catch (err: any) {
-      res.status(500).json({ error: 'Failed to fetch injuries', message: err.message });
+      console.error('Failed to fetch injuries from API-Football:', err.message);
+      res.json({ response: [], error: 'Failed to fetch injuries', message: err.message });
     }
   });
 
@@ -820,17 +823,15 @@ async function startServer() {
     }
 
     if (!apiKey) {
-      return res.status(401).json({
-        error: 'No API Key found. Set API_FOOTBALL_KEY environment variable to enable live proxy requests.',
-      });
+      return res.json({ response: [] });
     }
 
     try {
       const data = await fetchCached(`proxy_${apiEndpoint}`, () => fetchFromApiFootballRaw(apiEndpoint, apiKey), 60000);
       res.json(data);
     } catch (err: any) {
-      console.error('[PROXY ERROR]', err);
-      res.status(500).json({ error: 'Failed to fetch from API-Football.', message: err.message });
+      console.error('[PROXY ERROR]', err.message);
+      res.json({ response: [], error: 'Failed to fetch from API-Football.', message: err.message });
     }
   });
 
