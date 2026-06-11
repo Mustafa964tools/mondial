@@ -1,0 +1,6 @@
+{
+  "name": "964 - Goal",
+  "description": "سیستمی پیشاندانی ئەنجامەکانی مۆندیال بە شێوازی راستەوخۆ",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

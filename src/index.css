@@ -1,0 +1,48 @@
+@font-face {
+  font-family: '964';
+  src: url('/964.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '964';
+  src: url('/964.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Vazirmatn:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "964", "Vazirmatn", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "964", "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Premium FIFA Immersive UI style */
+  --color-primary: #8a1538; /* Maroon Burgundy */
+  --color-gold-cream: #ecd393; /* FIFA Trophy Warm Gold */
+  --color-gold-bright: #d4af37; /* Bright FIFA Gold */
+  
+  /* Immersive UI Specific Cores */
+  --color-imm-bg: #05070a;
+  --color-imm-header: #0a0e1a;
+  --color-imm-sidebar: #010307;
+  --color-imm-card: #0c101d;
+  --color-imm-highlight: #1a2238;
+}
+
+/* Animations and custom rules */
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.5; }
+  100% { transform: scale(0.95); opacity: 1; }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s infinite ease-in-out;
+}
+
